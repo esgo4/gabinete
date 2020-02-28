@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100406
+ Source Server Version : 50726
  Source Host           : localhost:3306
  Source Schema         : seguimiento_gabinete
 
  Target Server Type    : MySQL
- Target Server Version : 100406
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 28/02/2020 15:32:35
+ Date: 04/02/2020 23:41:42
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `acuerdos`  (
   `plazo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `fecha_inicio` date NULL DEFAULT NULL,
   `fecha_termino` date NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_acuerdos_minuta1_idx`(`minutas_id`) USING BTREE,
@@ -56,7 +56,7 @@ CREATE TABLE `auth_assignment`  (
 -- ----------------------------
 -- Records of auth_assignment
 -- ----------------------------
-INSERT INTO `auth_assignment` VALUES ('admin', '2', NULL);
+INSERT INTO `auth_assignment` VALUES ('admin', '1', NULL);
 
 -- ----------------------------
 -- Table structure for auth_item
@@ -145,7 +145,7 @@ CREATE TABLE `avances`  (
   `acuerdos_id` int(11) NULL DEFAULT NULL,
   `comentario` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `fecha_captura` date NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_avances_secretarias1_idx`(`secretarias_id`) USING BTREE,
@@ -165,7 +165,7 @@ CREATE TABLE `img_avances`  (
   `avances_id` int(11) NULL DEFAULT NULL,
   `archivo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `fecha_captura` date NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_img_avances_avances1_idx`(`avances_id`) USING BTREE,
@@ -179,12 +179,12 @@ CREATE TABLE `img_avances`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `m_proyectos`;
 CREATE TABLE `m_proyectos`  (
-  `seguimiento_id` int(11) NOT NULL,
+  `minutas_id` int(11) NOT NULL,
   `m_proyectos_estrategicos_id` int(11) NOT NULL,
-  PRIMARY KEY (`seguimiento_id`, `m_proyectos_estrategicos_id`) USING BTREE,
+  PRIMARY KEY (`minutas_id`, `m_proyectos_estrategicos_id`) USING BTREE,
   INDEX `fk_m_proyectos_proyectos_estrategicos1_idx`(`m_proyectos_estrategicos_id`) USING BTREE,
-  CONSTRAINT `fk_m_proyectos_proyectos_estrategicos1` FOREIGN KEY (`m_proyectos_estrategicos_id`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_m_proyectos_seguimiento` FOREIGN KEY (`seguimiento_id`) REFERENCES `seguimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_m_proyectos_minuta1` FOREIGN KEY (`minutas_id`) REFERENCES `minutas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_m_proyectos_proyectos_estrategicos1` FOREIGN KEY (`m_proyectos_estrategicos_id`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -199,7 +199,7 @@ CREATE TABLE `minutas`  (
   `fecha` date NULL DEFAULT NULL,
   `tema` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `datetime` datetime(0) NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_minuta_seguimiento1_idx`(`seguimientos_id`) USING BTREE,
@@ -224,7 +224,7 @@ CREATE TABLE `notificaciones`  (
   `hora_lectura` datetime(0) NULL DEFAULT NULL,
   `fecha_captura` date NULL DEFAULT NULL,
   `hora_captura` datetime(0) NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_notificaciones_seguimiento1_idx`(`seguimientos_id`) USING BTREE,
   INDEX `fk_notificaciones_minuta1_idx`(`minutas_id`) USING BTREE,
@@ -273,7 +273,6 @@ CREATE TABLE `profile`  (
 -- Records of profile
 -- ----------------------------
 INSERT INTO `profile` VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `profile` VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for proyectos_estrategicos
@@ -283,13 +282,7 @@ CREATE TABLE `proyectos_estrategicos`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of proyectos_estrategicos
--- ----------------------------
-INSERT INTO `proyectos_estrategicos` VALUES (1, 'Red de Sol');
-INSERT INTO `proyectos_estrategicos` VALUES (2, 'Uruapan Seguro y Eficiente');
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for responsables
@@ -363,13 +356,10 @@ CREATE TABLE `seguimiento`  (
   `fecha_captura` date NULL DEFAULT NULL,
   `user_id` int(11) NULL DEFAULT NULL,
   `leido` tinyint(4) NULL DEFAULT NULL,
-  `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
-  `proyecto_estrategico` int(11) NULL DEFAULT NULL,
+  `timestamp` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_seguimiento_user1_idx`(`user_id`) USING BTREE,
-  INDEX `fk_proyecto_estrategico`(`proyecto_estrategico`) USING BTREE,
-  CONSTRAINT `fk_seguimiento_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_proyecto_estrategico` FOREIGN KEY (`proyecto_estrategico`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_seguimiento_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -410,7 +400,6 @@ CREATE TABLE `token`  (
 -- Records of token
 -- ----------------------------
 INSERT INTO `token` VALUES (1, '_VzqZ3VtCLNJaVgc1cjRekm8oW3DQQrr', 1580190241, 0);
-INSERT INTO `token` VALUES (2, 'wnvFBrI_rlXFZ9xjtsMHNDUzw4trQAMM', 1582568888, 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -439,12 +428,11 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `user_unique_email`(`email`) USING BTREE,
   INDEX `fk_user_secretarias1_idx`(`secretarias_id`) USING BTREE,
   CONSTRAINT `fk_user_secretarias1` FOREIGN KEY (`secretarias_id`) REFERENCES `secretarias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'planeacion', 'planeacion@uruapan.gob.mx', '$2y$12$W18CupenUt6mC1sZiHlYXu0Ml6oe23fF0J2Djofy0ks7i5sOmcpsm', 'N-JgA3j0pfMn3UW6c_c4aBunQdERHmvB', NULL, NULL, NULL, '189.197.21.209', 1580190240, 1580190240, 0, 1580169901, 'Secretaria', 'Planeacion', NULL, 9);
-INSERT INTO `user` VALUES (2, 'e', 'esgo_4@hotmail.com', '$2y$12$7hUzDHUzDyf5AUuHm2X/Ku1kITLmf9HpohqBvdceGHRL9pQEIcogi', 'NtQwTTmBMHZCs2xFNdsrcS3ziwimTeh7', NULL, NULL, NULL, '127.0.0.1', 1582568886, 1582568886, 0, 1582569018, 'Secretaria', 'Sistemas', 'pp', 9);
+INSERT INTO `user` VALUES (1, 'planeacion', 'planeacion@uruapan.gob.mx', '$2y$12$W18CupenUt6mC1sZiHlYXu0Ml6oe23fF0J2Djofy0ks7i5sOmcpsm', 'N-JgA3j0pfMn3UW6c_c4aBunQdERHmvB', NULL, NULL, NULL, '189.197.21.209', 1580190240, 1580190240, 0, 1580169901, 'Secretaria', 'Planeacion', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
