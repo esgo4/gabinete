@@ -153,7 +153,7 @@ class AvancesController extends Controller
 //                     $modelnotificaciones->save();
 
             
-            return $this->redirect(['/seguimientos/index']);
+            return $this->redirect(['/seguimientos/view', 'id' => $id]);
         }
 
         return $this->renderAjax('nuevo/nuevo-avance', [

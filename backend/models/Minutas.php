@@ -29,7 +29,7 @@ class Minutas extends \yii\db\ActiveRecord
 {
     public $secretarias_responsables;
     public $secretarias_participantes;
-    //public $proyectos_estrategicos;
+    public $proyectos_estrategicos;
     /**
      * {@inheritdoc}
      */

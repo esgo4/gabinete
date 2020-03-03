@@ -53,7 +53,7 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
-            [['confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at'], 'integer'],
+            [['confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'secretarias_id'], 'integer'],
             [['username', 'email', 'unconfirmed_email', 'nombres', 'apellido_paterno', 'apellido_materno'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],

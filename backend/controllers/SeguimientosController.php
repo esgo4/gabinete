@@ -52,7 +52,7 @@ class SeguimientosController extends Controller
      */
      public function actionView($id) {
          
-       $model = $this->findModel($id);
+           $model = $this->findModel($id);
     
        $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id;
          
@@ -98,8 +98,6 @@ class SeguimientosController extends Controller
        
         $secretarias_responsables = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->where(['activo' => '1'])->all(), 'id', 'nombre');
         $secretarias_participantes = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->where(['activo' => '1'])->all(), 'id', 'nombre');
-        //$proyectos_estrategicos = \yii\helpers\ArrayHelper::map(\backend\models\ProyectosEstrategicos::find()->all(), 'id', 'nombre');
-        
 
         $model->fecha_inicio = date('Y-m-d');
         $model->leido = '0';
@@ -111,17 +109,7 @@ class SeguimientosController extends Controller
             $model->save();
             $model->folio = $model->id . '-' . date('Y-m-d');
             $model->save();
-            
-//            //guardo el proyecto
-//             if(isset($model->proyectos_estrategicos)){
-//                foreach ($model->proyectos_estrategicos as $proyectos){
-//                $m_proyectos = new \backend\models\Mproyectos();
-//                $m_proyectos->seguimiento_id = $model->id;
-//                $m_proyectos->m_proyectos_estrategicos_id = $proyectos;
-//                $m_proyectos->save();
-//                }
-//            }
-            
+
             //Guardo Secretaria Responsable 
             if ($model->secretaria_responsable == true) {
                 foreach ($model->secretaria_responsable as $responsable) {
@@ -137,7 +125,8 @@ class SeguimientosController extends Controller
 //                     $modelnotificaciones->leido = '0';
 //                     $modelnotificaciones->fecha_captura = date('Y-m-d');
 //                     $modelnotificaciones->save();
-                }              
+                }
+                
             }
 
             //Guardo Secretaria Participante 
@@ -157,6 +146,8 @@ class SeguimientosController extends Controller
 //                     $modelnotificaciones->save();
                 }
             }
+            
+  
 
             return $this->redirect(['index']);
         }
@@ -165,7 +156,6 @@ class SeguimientosController extends Controller
                     'model' => $model,
                     'secretarias_responsables' => $secretarias_responsables,
                     'secretarias_participantes' => $secretarias_participantes,
-                    //'proyectos_estrategicos' =>  $proyectos_estrategicos,
         ]);
     }
     
@@ -368,7 +358,7 @@ class SeguimientosController extends Controller
         
         $secretarias_responsables = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->all(), 'id', 'nombre');
         $secretarias_participantes = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->all(), 'id', 'nombre');
-        //$proyectos_estrategicos = \yii\helpers\ArrayHelper::map(\backend\models\ProyectosEstrategicos::find()->all(), 'id', 'nombre');
+        $proyectos_estrategicos = \yii\helpers\ArrayHelper::map(\backend\models\ProyectosEstrategicos::find()->all(), 'id', 'nombre');
         $tareas = \yii\helpers\ArrayHelper::map(Seguimientos::find()->all(), 'id', 'tema');
 
         
@@ -394,14 +384,17 @@ class SeguimientosController extends Controller
                 $m_proyectos->save();
                 }
             }
-                      
+            
+            
+            
+            
             return $this->redirect(['minutas/vista', 'id' => $minutas->id]);
         }
 
         return $this->renderAjax('minuta/nueva', [
             'minutas' => $minutas,
             'secretarias_responsables' => $secretarias_responsables,
-            //'proyectos_estrategicos' => $proyectos_estrategicos,
+            'proyectos_estrategicos' => $proyectos_estrategicos,
             'secretarias_participantes' => $secretarias_participantes,
         ]);
     }

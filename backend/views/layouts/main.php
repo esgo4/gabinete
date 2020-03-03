@@ -37,7 +37,7 @@ GabineteAsset::register($this);
             // user must click cancel or X to close
             'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE,]
         ]);
-        echo '<div id="modalContent"><div style="text-align:center"><img src="' . yii\helpers\Url::to('/img/load.gif') . '"></div></div>';
+        echo '<div id="modalContent"><div style="text-align:center"><img src="' . yii\helpers\Url::to('/redsol/loading.gif') . '"></div></div>';
         yii\bootstrap4\Modal::end();
         ?>
         
@@ -171,20 +171,15 @@ GabineteAsset::register($this);
                                             <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">Inicio</span>
                                         </a>
                                     </li>
-                                </ul>
+                                                 </ul>
                             </li>
                              <li class="">
                                 <a href="/index.php/seguimientos" title="Theme Settings" data-filter-tags="theme settings">
                                     <i class="fal fa-cog"></i>
                                     <span class="nav-link-text" data-i18n="nav.theme_settings">Seguimientos</span>
-                                </a>                               
-                             </li>
-                             <li class="">
-                                <a href="/index.php/minutas" title="Theme Settings" data-filter-tags="theme settings">
-                                    <i class="fal fa-cog"></i>
-                                    <span class="nav-link-text" data-i18n="nav.theme_settings">Minutas</span>
-                                </a>                               
-                             </li>
+                                </a>
+                                
+                            </li>
 <!--                            <li>
                                 <a href="#" title="Package Info" data-filter-tags="package info">
                                     <i class="fal fa-tag"></i>

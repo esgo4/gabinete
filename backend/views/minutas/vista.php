@@ -45,7 +45,7 @@
 <div id="correspondencia" class="panel">
                                     <div class="panel-hdr">
                                         <h2>
-                                             <span class="fw-300"><h3 class="title"><?php echo 'Información de la Minutasss'; ?></h3></span>
+                                             <span class="fw-300"><h3 class="title"><?php echo 'Información de la Minuta'; ?></h3></span>
                                         </h2>
 <!--                                        <div class="panel-toolbar">
                                             <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -75,7 +75,7 @@
                     </tr>
                      <tr style="background:none">
                         <td class="label" style="border:1.5px solid white;"><b><?php echo 'Proyecto Bandera'; ?></b></td>
-                                    <td><?php $proyectosb = \backend\models\Mproyectos::find()->where(['seguimiento_id' => $model->id])->all(); 
+                                    <td><?php $proyectosb = \backend\models\MProyectos::find()->where(['minutas_id' => $model->id])->all(); 
  foreach ($proyectosb as $bandera){
      echo $bandera->mProyectosEstrategicos->nombre;
  }

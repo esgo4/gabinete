@@ -28,7 +28,7 @@ use yii\web\JsExpression;
     <div id="nuevo-seguimiento" class="panel">
         <div class="panel-hdr">
             <h2>
-                NUEVO SEGUIMIENTO <span class="fw-300"></span>
+                NUEVO REGISTRO <span class="fw-300"></span>
             </h2>
             <div class="panel-toolbar">
                 <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
@@ -104,15 +104,6 @@ use yii\web\JsExpression;
                             ],
                         ])
                         ?>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-lg-4">
-                        <?php
-                        $tipos = \backend\models\ProyectosEstrategicos::find()->all();
-                        $lista = yii\helpers\ArrayHelper::map($tipos, 'id', 'nombre')     
-                    ?>        
-                     <?= $form->field($model, 'proyecto_estrategico' )->dropDownList($lista, ['prompt'=> 'Seleccionar Proyectos Bandera','style'=>'width:']) ?>
-                        
-                       
                     </div>
                     <div class="col-xs-12 col-sm-4 col-lg-4">
                   <?=

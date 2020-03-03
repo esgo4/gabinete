@@ -47,7 +47,7 @@ use yii\widgets\ActiveForm;
                                                      <?= $form->field($model, 'apellido_materno')->textInput(['maxlength' => true]) ?>
                                                     </div>
                                                      <div class="col-xs-12 col-sm-4 col-lg-4">
-                                                    <?= $form->field($model, 'secretarias_id')->textInput(['value' => $model->secretarias0->nombre,'readonly' => true]) ?>
+                                                    <?= $form->field($model, 'secretarias')->textInput(['value' => $model->secretarias->nombre,'readonly' => true]) ?>
                                                     </div>
                                                 </div>
                                                 

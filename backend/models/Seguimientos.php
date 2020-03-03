@@ -4,7 +4,6 @@ namespace backend\models;
 
 use Yii;
 use dektrium\user\models\User;
-
 /**
  * This is the model class for table "seguimiento".
  *
@@ -19,11 +18,7 @@ use dektrium\user\models\User;
  * @property string|null $fecha_captura
  * @property int|null $user_id
  * @property int|null $leido
- * @property string|null $timestamp
- * @property int|null $proyecto_estrategico
  *
- * @property MProyectos[] $mProyectos
- * @property ProyectosEstrategicos[] $mProyectosEstrategicos
  * @property Minutas[] $minutas
  * @property Notificaciones[] $notificaciones
  * @property Participantes[] $participantes
@@ -31,13 +26,11 @@ use dektrium\user\models\User;
  * @property Responsables[] $responsables
  * @property Secretarias[] $secretarias0
  * @property User $user
- * @property Proyecto_estrategico $proyecto_estrategico0
  */
 class Seguimientos extends \yii\db\ActiveRecord
 {
     public $secretaria_responsable;
     public $secretaria_participante;
-    //public $proyectos_estrategicos;
     const SCENARIO_NUEVO_SEGUIMIENTO = 'SCENARIO_NUEVO_SEGUIMIENTO';
     const SCENARIO_UPDATE_SEGUIMIENTO = 'SCENARIO_UPDATE_SEGUIMIENTO';
     /**
@@ -58,10 +51,9 @@ class Seguimientos extends \yii\db\ActiveRecord
             [['tema', 'tareas', 'secretaria_responsable', 'fecha_inicio', ],'required', 'on' => self::SCENARIO_UPDATE_SEGUIMIENTO],
             [['tareas', 'observaciones'], 'string'],
             [['fecha_inicio', 'fecha_vencimiento', 'fecha_captura', 'secretaria_participante', 'secretaria_participante'], 'safe'],
-            [['status', 'user_id', 'leido','proyecto_estrategico'], 'integer'],
+            [['status', 'user_id', 'leido'], 'integer'],
             [['folio', 'tema'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['proyecto_estrategico'], 'exist', 'skipOnError' => true, 'targetClass' => ProyectosEstrategicos::className(), 'targetAttribute' => ['proyecto_estrategico' => 'id']],
         ];
     }
 
@@ -82,34 +74,10 @@ class Seguimientos extends \yii\db\ActiveRecord
             'fecha_captura' => 'Fecha Captura',
             'user_id' => 'User ID',
             'leido' => 'Leido',
-            'timestamp' => 'Timestamp',
-            'proyecto_estrategico' => 'Proyecto'
         ];
     }
 
     /**
-     * Gets query for [[MProyectos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMProyectos()
-    {
-        return $this->hasMany(MProyectos::className(), ['seguimiento_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[MProyectosEstrategicos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMProyectosEstrategicos()
-    {
-        return $this->hasMany(ProyectosEstrategicos::className(), ['id' => 'm_proyectos_estrategicos_id'])->viaTable('m_proyectos', ['seguimiento_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Minutas]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getMinutas()
@@ -118,8 +86,6 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Notificaciones]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getNotificaciones()
@@ -128,8 +94,6 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Participantes]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getParticipantes()
@@ -138,8 +102,6 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Secretarias]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getSecretarias()
@@ -148,8 +110,6 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Responsables]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getResponsables()
@@ -158,8 +118,6 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Secretarias0]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getSecretarias0()
@@ -168,17 +126,10 @@ class Seguimientos extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[User]].
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-    
-    public function getProyecto_estrategico()
-    {
-        return $this->hasOne(ProyectosEstrategicos::className(), ['id' => 'proyecto_estrategico']);
     }
 }

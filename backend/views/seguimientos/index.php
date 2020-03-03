@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                'id',
                 'folio',
                 [
                     'attribute' => 'secretaria_responsable',
@@ -42,10 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             $responsabletema .= $resonsable->secretarias->nombre . '<br>';
 
-//                          $groupNames[] = $resonsable->secretarias->nombre;
-//                          return implode("\n", $groupNames);
+//                    $groupNames[] = $resonsable->secretarias->nombre;
+//                 return implode("\n", $groupNames);
                         }
                         return $responsabletema;
+
 
                         // return  $model->secretariasSeguimientos;
                         //return implode("\n", $groupNames);
@@ -63,10 +63,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             $participantestema .= $participante->secretarias->nombre . '<br>';
 
-//                          $groupNames[] = $resonsable->secretarias->nombre;
-//                          return implode("\n", $groupNames);
+//                    $groupNames[] = $resonsable->secretarias->nombre;
+//                 return implode("\n", $groupNames);
                         }
                         return $participantestema;
+
 
                         // return  $model->secretariasSeguimientos;
                         //return implode("\n", $groupNames);
@@ -120,8 +121,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             if (Yii::$app->user->can('admin-button')) {
                                 return '<div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Opciones
-                                <span class="caret"></span></button>
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Opciones
+                          <span class="caret"></span></button>
                           <ul class="dropdown-menu">
                           <li>' . Html::button('Editar', ['value' => Url::to(['editar-seguimiento', 'id' => $model->id]), 'title' => 'Editar  Seguimiento', 'class' => 'showModalButton btn btn-warning']) . ' </li>
                           <li>' . Html::a('Eliminar', ['delete', 'id' => $model->id], [
@@ -131,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 'method' => 'post',
                                             ],
                                         ]) . ' </li>    
-                          <li>' . Html::button('Generar Minuta', ['value' => Url::to(['generar-minuta', 'id' => $model->id]), 'title' => 'Generar  Minuta', 'class' => 'showModalButton btn btn-primary']) . ' </li>'
+                  <li>' . Html::button('Generar Minuta', ['value' => Url::to(['generar-minuta', 'id' => $model->id]), 'title' => 'Generar  Minuta', 'class' => 'showModalButton btn btn-primary']) . ' </li>'
                                         . '<li>' . Html::a('<span>Detalles</span>', Url::to(['view', 'id' => $model->id]), ['title' => 'Update', 'class' => 'btn btn-success']) . ' </li>
                           </ul>
                         </div>';
