@@ -178,7 +178,7 @@ GabineteAsset::register($this);
                                     <i class="fal fa-cog"></i>
                                     <span class="nav-link-text" data-i18n="nav.theme_settings">Seguimientos</span>
                                 </a>
-                                
+                                                               
                             </li>
 <!--                            <li>
                                 <a href="#" title="Package Info" data-filter-tags="package info">
@@ -1922,7 +1922,7 @@ GabineteAsset::register($this);
                                 </a>
                             </div>
                             <!-- app shortcuts -->
-                            <div>
+                            <div>                                
                                 <a href="#" class="header-icon" data-toggle="dropdown" title="My Apps">
                                     <i class="fal fa-cube"></i>
                                 </a>
@@ -2501,8 +2501,19 @@ GabineteAsset::register($this);
                                     </div>
                                     <div class="dropdown-divider m-0"></div>
                                     <a class="dropdown-item fw-500 pt-3 pb-3" href="page_login_alt.html">
-                                        <span data-i18n="drpdwn.page-logout">Logout</span>
+                                        <span data-i18n="drpdwn.page-logout">Logout</span>                                          
                                         <span class="float-right fw-n">&commat;codexlantern</span>
+                                        <span>
+                                           
+                                       
+                    <?= Html::a(
+                            'Cerrar Sesión',
+                            ['/site/logout'],
+                            ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                        ) ?>
+                
+                                    
+                                        </span>
                                     </a>
                                 </div>
                             </div>

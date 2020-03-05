@@ -15,7 +15,7 @@ return [
             'enableUnconfirmedLogin' => true,
             //'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['jgranados','esaul']
+            'admins' => ['jgranados','admin']
         ],
     ],
     'components' => [

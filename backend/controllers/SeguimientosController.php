@@ -50,13 +50,13 @@ class SeguimientosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-     public function actionView($id) {
+     public function actionView($id) { // id de seguimiento
          
            $model = $this->findModel($id);
     
-       $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id;
+       $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
          
-       $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id;
+       $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // se 2, 1-2
 
        $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
      
