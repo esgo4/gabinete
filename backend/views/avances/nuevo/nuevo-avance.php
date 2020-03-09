@@ -33,44 +33,39 @@ use kartik\widgets\Select2;
                                        
                                                 <div class="form-row">
                                                    <div class="col-xs-12 col-sm-4 col-lg-4">
-                                                          <?=
-                                    $form->field($model, 'acuerdos_id')->widget(Select2::classname(), [
-                                        'data' => $acuerdos,
-                                        'options' => ['placeholder' => 'Seleccionar Acuerdo ...', 'id' => 'acuerdos_id'],
-                                        'pluginOptions' => [
-                                            'allowClear' => true,
-                                        ],
-                                    ])->label('Acuerdos');
-                                    ?>
-                                    
+                                                        <?=
+                                                            $form->field($model, 'acuerdos_id')->widget(Select2::classname(), [
+                                                                'data' => $acuerdos,
+                                                                'options' => ['placeholder' => 'Seleccionar Acuerdo ...', 'id' => 'acuerdos_id'],
+                                                                'pluginOptions' => [
+                                                                    'allowClear' => true,
+                                                                ],
+                                                            ])->label('Acuerdos');
+                                                        ?>                                   
                                                     </div>
                                                    <div class="col-xs-12 col-sm-4 col-lg-4">
-                                                  <?= $form->field($model, 'fecha')->textInput(['value' => date('Y-m-d'), 'readonly' => true]) ?>
+                                                        <?= $form->field($model, 'fecha')->textInput(['value' => date('Y-m-d'), 'readonly' => true]) ?>
                                                     </div>
-                                                    <div class="col-xs-12 col-sm-4 col-lg-4">
-                                                   <?= $form->field($model, 'usuario')->textInput(['value' => 'granados', 'readonly' => true]) ?>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-4 col-lg-12">
-    <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
-                                                    </div>
-                                            <div class="col-xs-12 col-sm-4 col-lg-12">
-    <?=
-                                                $form->field($modelimg, 'archivo[]')->widget(\kartik\file\FileInput::classname(), [
-                                                    'options' => ['accept' => '*','multiple' => true],
-                                                    'pluginOptions'=>[
-                                                    'allowedFileExtensions' => ['jpg', 'gif', 'png', 'pdf', 'docx'],
-                                                ],
-                                                  ]  );
-                                                ?>
-                                                    </div>
-
-                                                    </div>
-                
+                                                   <div class="col-xs-12 col-sm-4 col-lg-4">
+                                                        <?= $form->field($model, 'usuario')->textInput(['value' => Yii::$app->user->identity->username, 'readonly' => true]) ?>
+                                                   </div>
+                                                   <div class="col-xs-12 col-sm-4 col-lg-12">
+                                                        <?= $form->field($model, 'comentario')->textarea(['rows' => 6]) ?>
+                                                   </div>
+                                                   <div class="col-xs-12 col-sm-4 col-lg-12">
+                                                        <?=
+                                                        $form->field($modelimg, 'archivo[]')->widget(\kartik\file\FileInput::classname(), [
+                                                            'options' => ['accept' => '*','multiple' => true],
+                                                            'pluginOptions'=>[
+                                                            'allowedFileExtensions' => ['jpg', 'gif', 'png', 'pdf', 'docx'],
+                                                        ],
+                                                          ]  );
+                                                        ?>
+                                                   </div>
                                                 </div>
-                                                
-                                             
-                                        </div>
+                                        </div>         
                                     </div>
+    </div>
                            
 
 

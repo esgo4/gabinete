@@ -244,6 +244,7 @@ ViewAsset::register($this);
                                 <div class="card mb-g">
                                     <div class="tab-pane" id="timeline">
                                         <?php if($model->status == 0 || $model->status == 2 || $model->status == 3){ ?>
+                                        
                                          <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
                                         <?php } ?>
                                         <br>
@@ -254,7 +255,7 @@ foreach (array_reverse($avances_secretaria) as $avances) {
     $secretaria_avance = '';
     $dia = '';
   
-        $timestamp = strtotime($avances->timestamp);
+    $timestamp = strtotime($avances->timestamp);
     $strTime = array("segundo", "minuto", "hora", "dia", "mes", "año");
     $length = array("60", "60", "24", "30", "12", "10");
     $currentTime = date('Y-m-d H:i:s');
@@ -267,31 +268,29 @@ foreach (array_reverse($avances_secretaria) as $avances) {
     
     $fecha = $avances->fecha_captura;
     
-  //Coveriir Fecha
-  $fecha = substr($fecha, 0, 10);
-  $numeroDia = date('d', strtotime($fecha));
-  $dia = date('l', strtotime($fecha));
-  $mes = date('F', strtotime($fecha));
-  $anio = date('Y', strtotime($fecha));
-  $dias_ES = array("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
-  $dias_EN = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
-  $nombredia = str_replace($dias_EN, $dias_ES, $dia);
-$meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-  $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-  $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
-//  echo $nombredia." ".$numeroDia." de ".$nombreMes." de ".$anio;
-  //Termina Conversion Fecha
-  //Otros
+    //Coveriir Fecha
+    $fecha = substr($fecha, 0, 10);
+    $numeroDia = date('d', strtotime($fecha));
+    $dia = date('l', strtotime($fecha));
+    $mes = date('F', strtotime($fecha));
+    $anio = date('Y', strtotime($fecha));
+    $dias_ES = array("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
+    $dias_EN = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+    $nombredia = str_replace($dias_EN, $dias_ES, $dia);
+    $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+    $meses_EN = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
+    //echo $nombredia." ".$numeroDia." de ".$nombreMes." de ".$anio;
+    //Termina Conversion Fecha
+    //Otros
 
-  $timestamp = strtotime($avances->timestamp);       
+    $timestamp = strtotime($avances->timestamp);       
            
-           $strTime1 = array("segundo", "minuto", "hora", "dia", "mes", "año");
-           $length1 = array("60","60","24","30","12","10");
+    $strTime1 = array("segundo", "minuto", "hora", "dia", "mes", "año");
+    $length1 = array("60","60","24","30","12","10");
 
-           $currentTime = date('Y-m-d H:i:s');
-
-
-    
+    $currentTime = date('Y-m-d H:i:s');
+  
                         $diff1     = time()- $timestamp;
                         for($i = 0; $diff1 >= $length1[$i] && $i < count($length1)-1; $i++) {
                         $diff1 = $diff1 / $length1[$i];
@@ -313,7 +312,6 @@ $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
    
               echo ' <ul class="timeline timeline-inverse">
 
-
                     <li class="time-label">
                         <span class="bg-red">
                           '.$nombredia." ".$numeroDia." de ".$nombreMes." de ".$anio.'
@@ -326,7 +324,11 @@ $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
                             <span class="time"><i class="fa fa-clock-o"></i>'. $diff . " " . $strTime[$i] . "(s)".'</span>
 
                             <h3 class="timeline-header"><a href="#">'.$avances->secretarias->nombre.'</a> reporto lo siguiente:</h3>
-
+                                
+                            <h3 class="timeline-header">
+                                Acuerdo: '.$avances->acuerdos->acuerdo.' 
+                            </h3>
+                            
                             <div class="timeline-body">
                                 '.$avances->comentario.' '.$img.' 
                             </div>

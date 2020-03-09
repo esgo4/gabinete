@@ -53,16 +53,13 @@ class SeguimientosController extends Controller
      public function actionView($id) { // id de seguimiento
          
            $model = $this->findModel($id);
-    
+    $minutaSe = \backend\models\Minutas::findOne(['seguimientos_id' => $id]);
        $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
          
-       $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // se 2, 1-2
+       $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
 
        $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
-     
-         
     
-
         $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
         $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
 
@@ -71,7 +68,9 @@ class SeguimientosController extends Controller
                     'avances_secretaria' => $avances,
                     'responsables' => $responsables,
                     'participantes' => $participantes,
-                    'minutas' => $minutas
+                    'minutas' => $minutas,
+            'minutaSe' => $minutaSe,
+            'acuerdos'=>$acuerdos
         ]);
     }
 
