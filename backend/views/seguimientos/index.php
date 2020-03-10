@@ -141,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Opciones
                           <span class="caret"></span></button>
                           <ul class="dropdown-menu">
-                          <li>' . Html::a('<span>Detalles</span>', Url::to(['view', 'id' => $model->id]), ['title' => 'Update', 'class' => 'btn btn-success']) . ' </li>
+                          <li>' . Html::a('<span>Detalles</span>', Url::to(['minutas', 'id' => $model->id]), ['title' => 'Detalles', 'class' => 'btn btn-success']) . ' </li>
                         
                           </ul>
                         </div>';

@@ -53,15 +53,15 @@ class SeguimientosController extends Controller
      public function actionView($id) { // id de seguimiento
          
            $model = $this->findModel($id);
-    $minutaSe = \backend\models\Minutas::findOne(['seguimientos_id' => $id]);
-       $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
-         
-       $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
-
-       $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
     
-        $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
-        $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
+           $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
+         
+           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
+
+           $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
+    
+           $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
+           $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
 
         return $this->render('view', [
                     'model' => $this->findModel($id),
@@ -69,8 +69,34 @@ class SeguimientosController extends Controller
                     'responsables' => $responsables,
                     'participantes' => $participantes,
                     'minutas' => $minutas,
-            'minutaSe' => $minutaSe,
             'acuerdos'=>$acuerdos
+        ]);
+    }
+    
+    public function actionMinutas($id) { // id de seguimiento
+         
+           $model = $this->findModel($id);
+    
+           $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
+         
+           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
+
+           $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
+    
+           $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
+           $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
+           
+           $minutas_registradas = \backend\models\Minutas::find()->where(['seguimientos_id' => $id])->all();
+
+
+        return $this->render('minutas', [
+                    'model' => $this->findModel($id),
+                    'avances_secretaria' => $avances,
+                    'responsables' => $responsables,
+                    'participantes' => $participantes,
+                    'minutas' => $minutas,
+                    'acuerdos'=>$acuerdos,
+            'minutas_registradas' => $minutas_registradas,
         ]);
     }
 
