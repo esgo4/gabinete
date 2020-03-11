@@ -59,26 +59,24 @@ ViewAsset::register($this);
                                                 <h5 class="mb-0 fw-700 text-center mt-3">
                                                    Seguimiento Folio: <?= $model->folio ?>
                                                     <small class="text-muted mb-0">Status</small>
-                                                                                                  <?php
-                    if($model->status == 0){
-                     echo '<p class="text-muted text-center"><button type="button" class="btn btn-danger waves-effect waves-themed">Vencido</button></p>';
-                     //echo '<span class="label label-success ">Completado</span>';
-                    }elseif ($model->status == 1) {
-                        
-                     echo '<p class="text-muted text-center"><button type="button" class="btn btn-success waves-effect waves-themed">Completado</button></p>';
-                     //echo '<span class="label label-success ">Completado</span>';
- 
-                    }elseif ($model->status == 2) {
-                      echo '<p class="text-muted text-center"><button type="button" class="btn btn-default waves-effect waves-themed">En Proceso</button></p>';
-                     //echo '<span class="label label-success ">Completado</span>';   
-                    } else {
-                      echo '<p class="text-muted text-center"><button type="button" class="btn btn-warning waves-effect waves-themed">Sin Atención</button></p>';
-                     //echo '<span class="label label-success ">Completado</span>';    
-                    }
-                    ?>
-                                                </h5>
-                                                
-                                                
+                                                       <?php
+                                                        if($model->status == 0){
+                                                         echo '<p class="text-muted text-center"><button type="button" class="btn btn-danger waves-effect waves-themed">Vencido</button></p>';
+                                                         //echo '<span class="label label-success ">Completado</span>';
+                                                        }elseif ($model->status == 1) {
+
+                                                         echo '<p class="text-muted text-center"><button type="button" class="btn btn-success waves-effect waves-themed">Completado</button></p>';
+                                                         //echo '<span class="label label-success ">Completado</span>';
+
+                                                        }elseif ($model->status == 2) {
+                                                          echo '<p class="text-muted text-center"><button type="button" class="btn btn-default waves-effect waves-themed">En Proceso</button></p>';
+                                                         //echo '<span class="label label-success ">Completado</span>';   
+                                                        } else {
+                                                          echo '<p class="text-muted text-center"><button type="button" class="btn btn-warning waves-effect waves-themed">Sin Atención</button></p>';
+                                                         //echo '<span class="label label-success ">Completado</span>';    
+                                                        }
+                                                        ?>
+                                                </h5>                                               
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -91,9 +89,13 @@ ViewAsset::register($this);
                                         </div>
                                         <div class="col-6">
                                             <div class="text-center py-3">
-                                                <h5 class="mb-0 fw-700">
-                                                 <?= count($avances_secretaria) ?>
+                                                <h5 class="mb-0 fw-700">                                                
+                                                    <?php                                                   
+                                                        echo Html::a(count($avances_secretaria), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                    ?>  
+                                                    <br>
                                                     <small class="text-muted mb-0">Avances Reportados </small>
+                                                    <!--<a href="/seguimientos/view?id= <?=$model->id?>" target="_self">Avances Reportados</a>-->
                                                 </h5>
                                             </div>
                                         </div>
@@ -107,13 +109,24 @@ ViewAsset::register($this);
                                                  
                                             </div>
                                         </div>
-  <?php 
-    if(Yii::$app->user->can('admin-cambiar-status')){
+                                        <div class="col-12">
+                                             <div class="text-center py-3">
+                                                <h5 class="mb-0 fw-700">
+                                                   <small class="text-muted mb-0">Minutas Registradas</small>
+                                                    <?php                                                   
+                                                        echo Html::a(count($minutas_registradas), ['minutas','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                    ?> 
+                                                                                                    
+                                                </h5>                                                
+                                            </div>
+                                        </div>
+                                        <?php 
+                                          if(Yii::$app->user->can('admin-cambiar-status')){
 
-        echo Html::button('Cambiar Status', ['value' => Url::to(['editar-status', 'id' => $model->id]), 'title' => 'Cambiar Status', 'class' => 'showModalButton btn btn-info waves-effect waves-themed']);
-        
-    }
-  ?>
+                                              echo Html::button('Cambiar Status', ['value' => Url::to(['editar-status', 'id' => $model->id]), 'title' => 'Cambiar Status', 'class' => 'showModalButton btn btn-info waves-effect waves-themed']);
+
+                                          }
+                                        ?>
 
 
                                         
@@ -250,8 +263,8 @@ ViewAsset::register($this);
                                         <br>
           
                                 <?php
-
-foreach (array_reverse($avances_secretaria) as $avances) { 
+                                if($avances_registrados!=null){
+                                    foreach (array_reverse($avances_registrados) as $avances) { 
     $secretaria_avance = '';
     $dia = '';
   
@@ -342,6 +355,11 @@ foreach (array_reverse($avances_secretaria) as $avances) {
 
                 </ul>';
                }
+                                }else{
+                                    echo ' <i class="fa fa-comments bg-yellow"></i>';
+                                }
+
+
         
     ?>
                 

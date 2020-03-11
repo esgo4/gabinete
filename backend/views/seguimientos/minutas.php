@@ -104,7 +104,6 @@ ViewAsset::register($this);
                                              <div class="text-center py-3">
                                                 <h5 class="mb-0 fw-700">
                                                    <small class="text-muted mb-0">Minutas Registradas</small>
-                                                    <br>
                                                     <?php                                                   
                                                         echo Html::a(count($minutas_registradas), ['minutas','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
                                                     ?> 
@@ -304,7 +303,7 @@ ViewAsset::register($this);
 
                                           //Termina Otros
 
-                                          //$imgs = backend\models\ImgAvances::findOne(['avances_id' => $avances->id])->archivo;
+                                          //$imgs = backend\models\Avances::find()->where(['minuta_id' => $avances->id])->archivo;
 
 //                                          if($avances->imgAvances == true){
 //                                                $img = '<a href="/avances/'.$avances->id.'/'.$imgs.'" target="_blank">Link Evidencia</a>'; 
@@ -331,12 +330,11 @@ ViewAsset::register($this);
 
                                                             <div class="timeline-body">
                                                                 Lugar de la Minuta: <strong style="font-size: 18px;"> '.$minuta->lugar.' </strong>
-                                                            </div>
-
-                                                            <div class="timeline-body">
-                                                              Ver Acuerdos 
-                                                            </div>
-
+                                                            </div> 
+                                                             <div class="timeline-body">
+                                                                    <a class="btn btn-success btn-sm" href="/seguimientos/view?id='.$minuta->id.'" target="_self">Ver evidencias</a>
+                                                            </div> 
+                                                            
                                                         </div>
                                                     </li>
                                                     <!--<li>

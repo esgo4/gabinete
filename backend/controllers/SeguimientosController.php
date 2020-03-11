@@ -50,26 +50,31 @@ class SeguimientosController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-     public function actionView($id) { // id de seguimiento
+     public function actionView($id) { // id de minuta para jalar avances
          
            $model = $this->findModel($id);
     
-           $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
+           $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 
          
-           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
+           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 
 
            $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
     
            $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
            $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
-
+           
+           $minutas_registradas = \backend\models\Minutas::find()->where(['seguimientos_id' => $model->id])->all();          
+           $avances_registrados = \backend\models\Avances::find()->where(['minuta_id' => $id])->all();
+           
         return $this->render('view', [
                     'model' => $this->findModel($id),
                     'avances_secretaria' => $avances,
                     'responsables' => $responsables,
                     'participantes' => $participantes,
                     'minutas' => $minutas,
-            'acuerdos'=>$acuerdos
+            'acuerdos'=>$acuerdos,
+            'avances_registrados' =>  $avances_registrados,
+            'minutas_registradas' => $minutas_registradas,
         ]);
     }
     
