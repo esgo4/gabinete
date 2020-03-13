@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="seguimientos-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <p><?= Yii::$app->user->identity->username ?></p>
 
     <?php if (Yii::$app->user->can('admin-nuevo-seguimiento')) {
         ?>
@@ -112,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            //'leido',
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'width:260px;'],
+                    'contentOptions' => ['style' => 'width:230px;'],
                     'header' => 'Menú',
                     'template' => '{view}',
                     'buttons' => [
@@ -133,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             ],
                                         ]) . ' </li>    
                   <li>' . Html::button('Generar Minuta', ['value' => Url::to(['generar-minuta', 'id' => $model->id]), 'title' => 'Generar  Minuta', 'class' => 'showModalButton btn btn-primary']) . ' </li>'
-                                        . '<li>' . Html::a('<span>Detalles</span>', Url::to(['view', 'id' => $model->id]), ['title' => 'Update', 'class' => 'btn btn-success']) . ' </li>
+                 . '<li>' . Html::a('<span>Detalles</span>', Url::to(['minutas', 'id' => $model->id]), ['title' => 'Detalles', 'class' => 'btn btn-success']) . ' </li>
                           </ul>
                         </div>';
                             } elseif (Yii::$app->user->can('user-button') && $model->minutas == true) {

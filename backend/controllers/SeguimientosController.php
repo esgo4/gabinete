@@ -56,9 +56,9 @@ class SeguimientosController extends Controller
     
            $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 
          
-           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 
+           //$acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 
 
-           $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
+           //$avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
     
            $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
            $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
@@ -68,11 +68,11 @@ class SeguimientosController extends Controller
            
         return $this->render('view', [
                     'model' => $this->findModel($id),
-                    'avances_secretaria' => $avances,
+                    //'avances_secretaria' => $avances,
                     'responsables' => $responsables,
                     'participantes' => $participantes,
                     'minutas' => $minutas,
-            'acuerdos'=>$acuerdos,
+            //'acuerdos'=>$acuerdos,
             'avances_registrados' =>  $avances_registrados,
             'minutas_registradas' => $minutas_registradas,
         ]);
@@ -82,16 +82,17 @@ class SeguimientosController extends Controller
          
            $model = $this->findModel($id);
     
-           $minutas = \backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
+           $minutas = 0;//;\backend\models\Minutas::findOne(['seguimientos_id' => $id])->id; // 1
          
-           $acuerdos = \backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
+           $acuerdos = 0;//\backend\models\Acuerdos::findOne(['minutas_id' => $minutas])->id; // 2 acuerdos, 1,2
 
-           $avances = \backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
+           $avances = 0;//\backend\models\Avances::find()->where(['acuerdos_id' => $acuerdos])->all();
     
            $responsables = \backend\models\Responsables::find()->where(['seguimientos_id' => $id])->all();
            $participantes = \backend\models\Participantes::find()->where(['seguimientos_id' => $id])->all();
            
            $minutas_registradas = \backend\models\Minutas::find()->where(['seguimientos_id' => $id])->all();
+           $avances_registrados = \backend\models\Avances::find()->where(['minuta_id' => $id])->all();
 
 
         return $this->render('minutas', [
@@ -100,8 +101,9 @@ class SeguimientosController extends Controller
                     'responsables' => $responsables,
                     'participantes' => $participantes,
                     'minutas' => $minutas,
-                    'acuerdos'=>$acuerdos,
+                    //'acuerdos'=>$acuerdos,
             'minutas_registradas' => $minutas_registradas,
+            'avances_registrados' =>  $avances_registrados,
         ]);
     }
 

@@ -117,6 +117,7 @@ class AvancesController extends Controller
         if ($model->load(Yii::$app->request->post()) or $modelimg->load(Yii::$app->request->post())) {
            $model->secretarias_id = Yii::$app->user->identity->secretarias_id;
            $model->fecha_captura = date('Y_m-d');
+           $model->minuta_id = $id;
            $model->save();
             
    

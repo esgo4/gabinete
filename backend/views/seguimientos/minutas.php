@@ -84,7 +84,8 @@ ViewAsset::register($this);
                                             <div class="text-center py-3">
                                                 <h5 class="mb-0 fw-700">                                                
                                                     <?php                                                   
-                                                        echo Html::a(count($avances_secretaria), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                        // Html::a(count($avances_registrados), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                    echo count($avances_registrados);
                                                     ?>  
                                                     <br>
                                                     <small class="text-muted mb-0">Avances Reportados </small>
@@ -114,7 +115,7 @@ ViewAsset::register($this);
                                         <?php 
                                           if(Yii::$app->user->can('admin-cambiar-status')){
 
-                                              echo Html::button('Cambiar Status', ['value' => Url::to(['editar-status', 'id' => $model->id]), 'title' => 'Cambiar Status', 'class' => 'showModalButton btn btn-info waves-effect waves-themed']);
+                                              echo Html::button('Cambiar Status', ['value' => Url::to(['editar-status', 'id' => $model->id]), 'title' => 'Cambiar Status', 'class' => 'showModalButton btn btn-info  waves-effect waves-themed']);
 
                                           }
                                         ?>                                       
@@ -243,14 +244,22 @@ ViewAsset::register($this);
                             <div class="col-lg-12 col-xl-9 order-lg-8 order-xl-8">                             
                                 <!-- post comment -->
                                 <div class="card mb-g">
+                                    <br>
+                                    <?php
+                                        if($minutas_registradas == null){
+                                            echo ' <ul class="timeline timeline-inverse" style="text-align:center;">
+
+                                                    <li class="time-label">
+                                                        <span class="bg-red">
+                                                          No hay minutas registradas
+                                                        </span>
+                                                    </li>
+
+                                                </ul>';
+                                        }
+                                    ?>
                                     <div class="tab-pane" id="timeline">
                                         <br>
-                                        <?php if($model->status == 0 || $model->status == 2 || $model->status == 3){ ?>                                        
-                                         <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
-                                        <?php } ?>
-                                        <br>
-                                        <br>
-          
                                         <?php
                                         foreach (array_reverse($minutas_registradas) as $minuta) { 
                                             $secretaria_avance = '';
@@ -300,7 +309,9 @@ ViewAsset::register($this);
                                                                 $diff1 = round($diff1);
                                                                  "Hace " . $diff1 . " " . $strTime1[$i] . "(s)";
 
-
+                                            ?>
+                                        
+                                        <?php
                                           //Termina Otros
 
                                           //$imgs = backend\models\Avances::find()->where(['minuta_id' => $avances->id])->archivo;
@@ -310,6 +321,15 @@ ViewAsset::register($this);
 //                                          } else {
 //                                           $img = ''; 
 //                                          }
+                                          
+                                           
+                                          if(Yii::$app->user->can('admin-cambiar-status')){
+
+                                                $btn = '<a class="btn btn-primary btn-sm" style="float:right;" href="/minutas/vista?id='.$minuta->id.'" target="_self">Detalles</a>'; 
+                                          }else {
+                                           $btn = ''; 
+                                          }
+                                          
 
                                         echo ' <ul class="timeline timeline-inverse">
 
@@ -332,7 +352,10 @@ ViewAsset::register($this);
                                                                 Lugar de la Minuta: <strong style="font-size: 18px;"> '.$minuta->lugar.' </strong>
                                                             </div> 
                                                              <div class="timeline-body">
-                                                                    <a class="btn btn-success btn-sm" href="/seguimientos/view?id='.$minuta->id.'" target="_self">Ver evidencias</a>
+                                                                    <a class="btn btn-success btn-sm" href="/seguimientos/view?id='.$minuta->id.'" target="_self">Ver Evidencias</a>
+                                                                       
+                                                                     '.$btn.' 
+                                                                         idminuta'.$minuta->id.'
                                                             </div> 
                                                             
                                                         </div>
@@ -342,7 +365,7 @@ ViewAsset::register($this);
                                                     </li>-->
                                                 </ul>';
                                          }
-                                        ?>                              
+                                          ?>                            
                                     </div>                                   
                                 </div>                           
                             </div>                           

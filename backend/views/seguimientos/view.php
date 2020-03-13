@@ -91,7 +91,8 @@ ViewAsset::register($this);
                                             <div class="text-center py-3">
                                                 <h5 class="mb-0 fw-700">                                                
                                                     <?php                                                   
-                                                        echo Html::a(count($avances_secretaria), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                        // Html::a(count($avances_secretaria), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm'])
+                                                    echo count($avances_registrados);
                                                     ?>  
                                                     <br>
                                                     <small class="text-muted mb-0">Avances Reportados </small>
@@ -256,11 +257,16 @@ ViewAsset::register($this);
                                 <!-- post comment -->
                                 <div class="card mb-g">
                                     <div class="tab-pane" id="timeline">
-                                        <?php if($model->status == 0 || $model->status == 2 || $model->status == 3){ ?>
-                                        
-                                         <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
-                                        <?php } ?>
                                         <br>
+                                        <?php
+                                                                                      
+                                                                                                                                       
+                                                if($model->status == 0 || $model->status == 2 || $model->status == 3){ 
+                                                 ?>                                       
+                                                 <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
+                                                <?php }?>
+                                        <br>
+                                            
           
                                 <?php
                                 if($avances_registrados!=null){
@@ -325,38 +331,44 @@ ViewAsset::register($this);
    
               echo ' <ul class="timeline timeline-inverse">
 
-                    <li class="time-label">
-                        <span class="bg-red">
-                          '.$nombredia." ".$numeroDia." de ".$nombreMes." de ".$anio.'
-                        </span>
-                    </li>
-                    <li>
-                        <i class="fa fa-comments bg-yellow"></i>
+                        <li class="time-label">
+                            <span class="bg-red">
+                              '.$nombredia." ".$numeroDia." de ".$nombreMes." de ".$anio.'
+                            </span>
+                        </li>
+                        <li>
+                            <i class="fa fa-comments bg-yellow"></i>
 
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i>'. $diff . " " . $strTime[$i] . "(s)".'</span>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i>'. $diff . " " . $strTime[$i] . "(s)".'</span>
 
-                            <h3 class="timeline-header"><a href="#">'.$avances->secretarias->nombre.'</a> reporto lo siguiente:</h3>
-                                
-                            <h3 class="timeline-header">
-                                Acuerdo: '.$avances->acuerdos->acuerdo.' 
-                            </h3>
-                            
-                            <div class="timeline-body">
-                                '.$avances->comentario.' '.$img.' 
+                                <h3 class="timeline-header"><a href="#">'.$avances->secretarias->nombre.'</a> reporto lo siguiente:</h3>
+
+                                <h3 class="timeline-header">
+                                    Acuerdo: '.$avances->acuerdos->acuerdo.' 
+                                </h3>
+
+                                <div class="timeline-body">
+                                    '.$avances->comentario.' '.$img.' 
+                                </div>
+
                             </div>
-
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fa fa-clock-o bg-gray"></i>
-                    </li>
-
-
-                </ul>';
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o bg-gray"></i>
+                        </li>
+                    </ul>';
                }
                                 }else{
-                                    echo ' <i class="fa fa-comments bg-yellow"></i>';
+                                    echo ' <ul class="timeline timeline-inverse" style="text-align:center;">
+
+                                                <li class="time-label">
+                                                    <span class="bg-red">
+                                                      No hay avances registrados
+                                                    </span>
+                                                </li>
+                                                
+                                            </ul>';
                                 }
 
 
