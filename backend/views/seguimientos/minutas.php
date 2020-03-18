@@ -82,13 +82,17 @@ ViewAsset::register($this);
                                         </div>
                                         <div class="col-6">
                                             <div class="text-center py-3">
-                                                <h5 class="mb-0 fw-700">                                                
+                                                <h5 class="mb-0 fw-700">  
+                                                    <small class="text-muted mb-0">Minutas Registradas</small>
+                                                    <?php                                                   
+                                                        echo Html::a(count($minutas_registradas), ['minutas','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                    ?> 
                                                     <?php                                                   
                                                         // Html::a(count($avances_registrados), ['view','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
-                                                    echo count($avances_registrados);
+                                                    // count($avances_registrados);
                                                     ?>  
                                                     <br>
-                                                    <small class="text-muted mb-0">Avances Reportados </small>
+                                                    <!--<small class="text-muted mb-0">Avances Reportados </small>-->
                                                     <!--<a href="/seguimientos/view?id= <?=$model->id?>" target="_self">Avances Reportados</a>-->
                                                 </h5>
                                             </div>
@@ -101,17 +105,17 @@ ViewAsset::register($this);
                                                 </h5>                                                
                                             </div>
                                         </div>
-                                        <div class="col-12">
+<!--                                        <div class="col-12">
                                              <div class="text-center py-3">
                                                 <h5 class="mb-0 fw-700">
                                                    <small class="text-muted mb-0">Minutas Registradas</small>
                                                     <?php                                                   
-                                                        echo Html::a(count($minutas_registradas), ['minutas','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
+                                                        // Html::a(count($minutas_registradas), ['minutas','id' => $model->id], ['class' => 'btn btn-success btn-sm']) 
                                                     ?> 
                                                                                                     
                                                 </h5>                                                
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <?php 
                                           if(Yii::$app->user->can('admin-cambiar-status')){
 
@@ -355,7 +359,7 @@ ViewAsset::register($this);
                                                                     <a class="btn btn-success btn-sm" href="/seguimientos/view?id='.$minuta->id.'" target="_self">Ver Evidencias</a>
                                                                        
                                                                      '.$btn.' 
-                                                                         idminuta'.$minuta->id.'
+                                                                         idminuta: '.$minuta->id.'
                                                             </div> 
                                                             
                                                         </div>

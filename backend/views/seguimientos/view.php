@@ -55,8 +55,9 @@ ViewAsset::register($this);
                                     <div class="row no-gutters row-grid">
                                         <div class="col-12">
                                             <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                                lugar:  <?= $minutas->lugar ?>
                                                 <img src="/thema/logo.png" class="rounded-circle shadow-2 img-thumbnail" alt="">
-                                                <h5 class="mb-0 fw-700 text-center mt-3">
+                                                <h5 class="mb-0 fw-700 text-center mt-3">                                                  
                                                    Seguimiento Folio: <?= $model->folio ?>
                                                     <small class="text-muted mb-0">Status</small>
                                                        <?php
@@ -263,7 +264,7 @@ ViewAsset::register($this);
                                                                                                                                        
                                                 if($model->status == 0 || $model->status == 2 || $model->status == 3){ 
                                                  ?>                                       
-                                                 <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
+                                                 <?= Html::button('Registrar Avance', ['value' => Url::to(['avances/nuevo-avance', 'id' => $minutas->id]), 'title' => 'Nuevo Seguimiento', 'class' => 'showModalButton btn btn-primary pull-right']); ?>
                                                 <?php }?>
                                         <br>
                                             
