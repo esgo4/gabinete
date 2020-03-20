@@ -11,7 +11,7 @@
  Target Server Version : 100406
  File Encoding         : 65001
 
- Date: 28/02/2020 15:32:35
+ Date: 20/03/2020 09:19:09
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,15 @@ CREATE TABLE `acuerdos`  (
   CONSTRAINT `fk_acuerdos_minuta1` FOREIGN KEY (`minutas_id`) REFERENCES `minutas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_acuerdos_secretarias1` FOREIGN KEY (`secretaria_id`) REFERENCES `secretarias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_acuerdos_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of acuerdos
+-- ----------------------------
+INSERT INTO `acuerdos` VALUES (1, 'Reglamentos de contencion', 1, 1, NULL, '2020-03-18', '2020-03-25', '2020-03-18 10:05:06', 3);
+INSERT INTO `acuerdos` VALUES (2, 'Suspension ', 2, 9, NULL, '2020-03-18', NULL, '2020-03-18 10:36:10', 3);
+INSERT INTO `acuerdos` VALUES (3, 'Actividades para la cuarentena', 3, 9, NULL, '2020-03-18', '2020-03-25', '2020-03-18 13:19:48', 3);
+INSERT INTO `acuerdos` VALUES (4, 'reglamento de instalacion de servicios de alumbrado', 4, 8, NULL, '2020-03-18', '2020-03-25', '2020-03-18 15:13:00', 3);
 
 -- ----------------------------
 -- Table structure for auth_assignment
@@ -56,7 +64,10 @@ CREATE TABLE `auth_assignment`  (
 -- ----------------------------
 -- Records of auth_assignment
 -- ----------------------------
-INSERT INTO `auth_assignment` VALUES ('admin', '2', NULL);
+INSERT INTO `auth_assignment` VALUES ('admin', '3', NULL);
+INSERT INTO `auth_assignment` VALUES ('user', '1', NULL);
+INSERT INTO `auth_assignment` VALUES ('user', '4', 1583512851);
+INSERT INTO `auth_assignment` VALUES ('user', '5', 1584565757);
 
 -- ----------------------------
 -- Table structure for auth_item
@@ -147,14 +158,23 @@ CREATE TABLE `avances`  (
   `fecha_captura` date NULL DEFAULT NULL,
   `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
   `user_id` int(11) NULL DEFAULT NULL,
+  `minuta_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_avances_secretarias1_idx`(`secretarias_id`) USING BTREE,
   INDEX `fk_avances_acuerdos1_idx`(`acuerdos_id`) USING BTREE,
   INDEX `fk_avances_user1_idx`(`user_id`) USING BTREE,
+  INDEX `fk_avances_minutaid`(`minuta_id`) USING BTREE,
   CONSTRAINT `fk_avances_acuerdos1` FOREIGN KEY (`acuerdos_id`) REFERENCES `acuerdos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_avances_minutaid` FOREIGN KEY (`minuta_id`) REFERENCES `minutas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_avances_secretarias1` FOREIGN KEY (`secretarias_id`) REFERENCES `secretarias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_avances_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of avances
+-- ----------------------------
+INSERT INTO `avances` VALUES (1, 9, 3, 'muchas tareas', '2020-03-18', '2020-03-18 14:39:28', NULL, 3);
+INSERT INTO `avances` VALUES (3, 8, 4, 'Acuerdos listos y aprobados', '2020-03-18', '2020-03-18 15:15:34', NULL, 4);
 
 -- ----------------------------
 -- Table structure for img_avances
@@ -172,20 +192,34 @@ CREATE TABLE `img_avances`  (
   INDEX `fk_img_avances_user1_idx`(`user_id`) USING BTREE,
   CONSTRAINT `fk_img_avances_avances1` FOREIGN KEY (`avances_id`) REFERENCES `avances` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_img_avances_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of img_avances
+-- ----------------------------
+INSERT INTO `img_avances` VALUES (1, 1, '2pD8hUiP588Udi0HXB_CafpUsP0u0lih.png', '2020-03-18', '2020-03-18 14:39:28', 1);
+INSERT INTO `img_avances` VALUES (2, 3, 'wA1-rtP20ST1Ls_bvTD_NjrDoWo58NV_.docx', '2020-03-18', '2020-03-18 15:15:34', 5);
 
 -- ----------------------------
 -- Table structure for m_proyectos
 -- ----------------------------
 DROP TABLE IF EXISTS `m_proyectos`;
 CREATE TABLE `m_proyectos`  (
-  `seguimiento_id` int(11) NOT NULL,
+  `minutas_id` int(11) NOT NULL,
   `m_proyectos_estrategicos_id` int(11) NOT NULL,
-  PRIMARY KEY (`seguimiento_id`, `m_proyectos_estrategicos_id`) USING BTREE,
+  PRIMARY KEY (`minutas_id`, `m_proyectos_estrategicos_id`) USING BTREE,
   INDEX `fk_m_proyectos_proyectos_estrategicos1_idx`(`m_proyectos_estrategicos_id`) USING BTREE,
-  CONSTRAINT `fk_m_proyectos_proyectos_estrategicos1` FOREIGN KEY (`m_proyectos_estrategicos_id`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_m_proyectos_seguimiento` FOREIGN KEY (`seguimiento_id`) REFERENCES `seguimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_m_proyectos_minuta1` FOREIGN KEY (`minutas_id`) REFERENCES `minutas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_m_proyectos_proyectos_estrategicos1` FOREIGN KEY (`m_proyectos_estrategicos_id`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of m_proyectos
+-- ----------------------------
+INSERT INTO `m_proyectos` VALUES (1, 2);
+INSERT INTO `m_proyectos` VALUES (2, 2);
+INSERT INTO `m_proyectos` VALUES (3, 1);
+INSERT INTO `m_proyectos` VALUES (4, 1);
 
 -- ----------------------------
 -- Table structure for minutas
@@ -206,7 +240,15 @@ CREATE TABLE `minutas`  (
   INDEX `fk_minuta_user1_idx`(`user_id`) USING BTREE,
   CONSTRAINT `fk_minuta_seguimiento1` FOREIGN KEY (`seguimientos_id`) REFERENCES `seguimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_minuta_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of minutas
+-- ----------------------------
+INSERT INTO `minutas` VALUES (1, 'acdo-1-2020', 'Sala de proteccion civil', 1, '2020-03-18', 'Enfermadades', '2020-03-18 17:00:40', '2020-03-18 10:04:40', 3);
+INSERT INTO `minutas` VALUES (2, 'acdo-2-2020', 'Sala de transito', 1, '2020-03-18', 'Enfermadades', '2020-03-18 17:00:10', '2020-03-18 10:29:10', 3);
+INSERT INTO `minutas` VALUES (3, 'acdo-3-2020', 'Plaza la ranita', 2, '2020-03-18', 'Relamento de cuarentena', '2020-03-18 20:00:23', '2020-03-18 13:19:23', 3);
+INSERT INTO `minutas` VALUES (4, 'acdo-4-2020', 'Sala de juntas de obras publicas', 3, '2020-03-18', 'Alumbrado publico', '2020-03-18 22:00:18', '2020-03-18 15:12:18', 3);
 
 -- ----------------------------
 -- Table structure for notificaciones
@@ -252,6 +294,13 @@ CREATE TABLE `participantes`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of participantes
+-- ----------------------------
+INSERT INTO `participantes` VALUES (8, 3);
+INSERT INTO `participantes` VALUES (9, 1);
+INSERT INTO `participantes` VALUES (9, 2);
+
+-- ----------------------------
 -- Table structure for profile
 -- ----------------------------
 DROP TABLE IF EXISTS `profile`;
@@ -273,7 +322,9 @@ CREATE TABLE `profile`  (
 -- Records of profile
 -- ----------------------------
 INSERT INTO `profile` VALUES (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `profile` VALUES (2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `profile` VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `profile` VALUES (4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `profile` VALUES (5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for proyectos_estrategicos
@@ -288,8 +339,8 @@ CREATE TABLE `proyectos_estrategicos`  (
 -- ----------------------------
 -- Records of proyectos_estrategicos
 -- ----------------------------
-INSERT INTO `proyectos_estrategicos` VALUES (1, 'Red de Sol');
-INSERT INTO `proyectos_estrategicos` VALUES (2, 'Uruapan Seguro y Eficiente');
+INSERT INTO `proyectos_estrategicos` VALUES (1, 'Uruapan Seguro');
+INSERT INTO `proyectos_estrategicos` VALUES (2, 'Red del Sol');
 
 -- ----------------------------
 -- Table structure for responsables
@@ -303,6 +354,14 @@ CREATE TABLE `responsables`  (
   CONSTRAINT `fk_responsables_secretarias1` FOREIGN KEY (`secretarias_id`) REFERENCES `secretarias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_responsables_seguimiento1` FOREIGN KEY (`seguimientos_id`) REFERENCES `seguimiento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of responsables
+-- ----------------------------
+INSERT INTO `responsables` VALUES (1, 1);
+INSERT INTO `responsables` VALUES (1, 2);
+INSERT INTO `responsables` VALUES (1, 3);
+INSERT INTO `responsables` VALUES (2, 3);
 
 -- ----------------------------
 -- Table structure for secretarias
@@ -364,13 +423,17 @@ CREATE TABLE `seguimiento`  (
   `user_id` int(11) NULL DEFAULT NULL,
   `leido` tinyint(4) NULL DEFAULT NULL,
   `timestamp` timestamp(0) NULL DEFAULT current_timestamp(),
-  `proyecto_estrategico` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_seguimiento_user1_idx`(`user_id`) USING BTREE,
-  INDEX `fk_proyecto_estrategico`(`proyecto_estrategico`) USING BTREE,
-  CONSTRAINT `fk_seguimiento_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_proyecto_estrategico` FOREIGN KEY (`proyecto_estrategico`) REFERENCES `proyectos_estrategicos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `fk_seguimiento_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of seguimiento
+-- ----------------------------
+INSERT INTO `seguimiento` VALUES (1, '1-2020-03-18', 'Enfermadades', '<p>Tareas de prevecion&nbsp;</p>', '2020-03-18', '2020-03-25', 'sin Ob', 3, '2020-03-18', 3, 0, '2020-03-18 10:03:21');
+INSERT INTO `seguimiento` VALUES (2, '2-2020-03-18', 'Relamento de cuarentena', '<p>Tareas para cuarentena</p>', '2020-03-18', '2020-03-25', '', 2, '2020-03-18', 3, 0, '2020-03-18 13:18:55');
+INSERT INTO `seguimiento` VALUES (3, '3-2020-03-18', 'Alumbrado publico', '<p>tareas para alumbrado</p>', '2020-03-18', '2020-03-25', '', 0, '2020-03-18', 3, 0, '2020-03-18 15:07:01');
 
 -- ----------------------------
 -- Table structure for social_account
@@ -410,7 +473,7 @@ CREATE TABLE `token`  (
 -- Records of token
 -- ----------------------------
 INSERT INTO `token` VALUES (1, '_VzqZ3VtCLNJaVgc1cjRekm8oW3DQQrr', 1580190241, 0);
-INSERT INTO `token` VALUES (2, 'wnvFBrI_rlXFZ9xjtsMHNDUzw4trQAMM', 1582568888, 0);
+INSERT INTO `token` VALUES (3, 'wZNqFW6dUpB--ZLyO1rZWEzI593_wXBb', 1583244389, 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -439,12 +502,14 @@ CREATE TABLE `user`  (
   UNIQUE INDEX `user_unique_email`(`email`) USING BTREE,
   INDEX `fk_user_secretarias1_idx`(`secretarias_id`) USING BTREE,
   CONSTRAINT `fk_user_secretarias1` FOREIGN KEY (`secretarias_id`) REFERENCES `secretarias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'planeacion', 'planeacion@uruapan.gob.mx', '$2y$12$W18CupenUt6mC1sZiHlYXu0Ml6oe23fF0J2Djofy0ks7i5sOmcpsm', 'N-JgA3j0pfMn3UW6c_c4aBunQdERHmvB', NULL, NULL, NULL, '189.197.21.209', 1580190240, 1580190240, 0, 1580169901, 'Secretaria', 'Planeacion', NULL, 9);
-INSERT INTO `user` VALUES (2, 'e', 'esgo_4@hotmail.com', '$2y$12$7hUzDHUzDyf5AUuHm2X/Ku1kITLmf9HpohqBvdceGHRL9pQEIcogi', 'NtQwTTmBMHZCs2xFNdsrcS3ziwimTeh7', NULL, NULL, NULL, '127.0.0.1', 1582568886, 1582568886, 0, 1582569018, 'Secretaria', 'Sistemas', 'pp', 9);
+INSERT INTO `user` VALUES (1, 'Planeacion', 'planeacion@uruapan.gob.mx', '$2y$12$cFwU.MAWdjcFzAIaTIkbYOCanGj5qpAip7fesg5ZQMOXlfSQNoJPO', 'N-JgA3j0pfMn3UW6c_c4aBunQdERHmvB', 1583431074, NULL, NULL, '189.197.21.209', 1580190240, 1583432921, 0, 1584545301, 'Secretaria', 'Planeacion', NULL, 9);
+INSERT INTO `user` VALUES (3, 'Admin', 'esgo_4@hotmail.com', '$2y$12$NsY1f9wh5.xFfnYZnrZ.B.wyRZW9xVRHO.POUyWORv2GSGnBB1oYS', '-FF8_cGlEaxKXfBaExyt13jLmE1dM1ns', 1583431066, NULL, NULL, '127.0.0.1', 1583244389, 1583244389, 0, 1584565545, 'Super', 'admin', 'admin', NULL);
+INSERT INTO `user` VALUES (4, 'Ayuntamiento', 'correo@homail.com', '$2y$12$5hUVSFiAV/IZC.rAt98W/uT/wGR95Lzg.YtQSshFPWbLAPTsmx/zi', 'pLleZSriyRj8raU18WqrEu5X8ctzlM6E', 1583512751, NULL, NULL, '127.0.0.1', 1583512751, 1583512751, 0, 1584130270, 'Secretaria', 'Ayuntamiento', NULL, 1);
+INSERT INTO `user` VALUES (5, 'Obras', 'email@hotmail.com', '$2y$12$1Lg4ivJ8aDyWUGWkUyi98u8iD7mI7YW9H2WhdXGOZd5D/E2UEfTzq', 'T87ZEUgZNccoYSHOqkYPZnoIdZsKTLPS', 1584565743, NULL, NULL, '127.0.0.1', 1584565743, 1584565743, 0, 1584565782, 'Secretaria ', 'Obras', NULL, 8);
 
 SET FOREIGN_KEY_CHECKS = 1;
