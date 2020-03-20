@@ -457,7 +457,7 @@ class SeguimientosController extends Controller
              $model->status;
             
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['minutas', 'id' => $model->id]);
         }
 
         return $this->renderAjax('editar/editar-status', [

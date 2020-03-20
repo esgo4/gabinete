@@ -37,7 +37,7 @@ GabineteAsset::register($this);
             // user must click cancel or X to close
             'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE,]
         ]);
-        echo '<div id="modalContent"><div style="text-align:center"><img src="' . yii\helpers\Url::to('/redsol/loading.gif') . '"></div></div>';
+        echo '<div id="modalContent"><div style="text-align:center"><img src="' . yii\helpers\Url::to('/img/load.gif') . '"></div></div>';
         yii\bootstrap4\Modal::end();
         ?>
         

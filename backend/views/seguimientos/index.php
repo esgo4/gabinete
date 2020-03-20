@@ -87,16 +87,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'label' => 'Estado',
                     'attribute' => 'status',
+                    'format' => 'html',
                     'filter' => array("0" => "Vencido", "1" => "Completado", "2" => "En Proceso", "3" => "Sin Atencion"),
                     'value' => function ($data) {
                         if ($data->status == 0) {
-                            return 'Vencido'; // or return true;
+                            return '<div style="background:#fd3995; text-align:center; color:white; border-radius:10px;">Vencido</div>'
+                            ; // or return true;
                         } elseif ($data->status == 1) {
-                            return 'Completado'; // or return true;        
+                            return '<div style="background:#1dc9b7 ; text-align:center; color:white; border-radius:10px;">Completado</div>'; // or return true;  #1dc9b7      
                         } elseif ($data->status == 2) {
-                            return 'En Proceso'; // or return true;        
+                            return '<div style="background:#f5f5f5; text-align:center; color:; border-radius:10px;">En Proceso</div>'; // or return true;    #f5f5f5    
                         } else {
-                            return 'Sin Atencion  '; // or return true;   
+                            return '<div style="background:#ffc241; text-align:center; color:white; border-radius:10px;">Sin Atencion</div>'; // or return true;  #ffc241 
                         }
                     },
                 ],

@@ -359,7 +359,7 @@ ViewAsset::register($this);
                                                                     <a class="btn btn-success btn-sm" href="/seguimientos/view?id='.$minuta->id.'" target="_self">Ver Evidencias</a>
                                                                        
                                                                      '.$btn.' 
-                                                                         idminuta: '.$minuta->id.'
+                                                                         
                                                             </div> 
                                                             
                                                         </div>
