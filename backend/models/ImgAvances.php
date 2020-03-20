@@ -37,6 +37,7 @@ class ImgAvances extends \yii\db\ActiveRecord
             [['avances_id', 'user_id'], 'integer'],
             [['fecha_captura', 'timestamp'], 'safe'],
             [['archivo'], 'string', 'max' => 255],
+            [['archivo'], 'required', 'message'=>'No puede estar vacío'],
             [['avances_id'], 'exist', 'skipOnError' => true, 'targetClass' => Avances::className(), 'targetAttribute' => ['avances_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

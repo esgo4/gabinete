@@ -33,31 +33,31 @@ use kartik\select2\Select2;
                     </div>
                     <div class="col-xs-12 col-sm-4 col-lg-6">
                        <?=
-$form->field($model, 'secretaria_id')->widget(Select2::classname(), [
-    'name' => 'secretaria_id',
-    'language' => 'es',
-    'data' => $secretarias,
-    'options' => [ 'placeholder' => 'Seleccionar Secretaria', 'id' => 'secretaria_id'],
-    'pluginOptions' => [
-//                            'ajax' => [
-//                                //'url' => Url::to(['participantes']),
-//                                'url' => Url::to(['responsables']),
-//                                'dataType' => 'json',
-//                                'data' => new JsExpression('function(params) {
-//                                        var arr = ($("#secretaria_participante").val());
-//                                        var arr_length = arr.length;
-//                                        var demo = [];
-//                                        for (var i = 0; i < arr_length; i++) {
-//                                            demo += arr[i] + ",";
-//                                        }
-//                                        console.log(demo);
-//                                        return { dependencia: demo, q:params.term, page: params.page };
-//                                    }'
-//                                ),
-//                            ],
-    ],
-])
-?>
+                            $form->field($model, 'secretaria_id')->widget(Select2::classname(), [
+                                'name' => 'secretaria_id',
+                                'language' => 'es',
+                                'data' => $secretarias,
+                                'options' => [ 'placeholder' => 'Seleccionar Secretaria', 'id' => 'secretaria_id'],
+                                'pluginOptions' => [
+                            //                            'ajax' => [
+                            //                                //'url' => Url::to(['participantes']),
+                            //                                'url' => Url::to(['responsables']),
+                            //                                'dataType' => 'json',
+                            //                                'data' => new JsExpression('function(params) {
+                            //                                        var arr = ($("#secretaria_participante").val());
+                            //                                        var arr_length = arr.length;
+                            //                                        var demo = [];
+                            //                                        for (var i = 0; i < arr_length; i++) {
+                            //                                            demo += arr[i] + ",";
+                            //                                        }
+                            //                                        console.log(demo);
+                            //                                        return { dependencia: demo, q:params.term, page: params.page };
+                            //                                    }'
+                            //                                ),
+                            //                            ],
+                                ],
+                            ])
+                        ?>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-lg-6">
                        <?=

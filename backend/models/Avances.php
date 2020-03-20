@@ -40,7 +40,7 @@ class Avances extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['acuerdos_id', 'comentario'], 'required', 'on' => self::SCENARIO_NUEVO_ACANCE],
+            [['acuerdos_id', 'comentario'], 'required', 'on' => self::SCENARIO_NUEVO_ACANCE, 'message'=>'No puede estar vacío'],
             [['secretarias_id', 'acuerdos_id', 'user_id'], 'integer'],
             [['comentario'], 'string'],
             [['fecha_captura', 'timestamp'], 'safe'],

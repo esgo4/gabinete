@@ -91,14 +91,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filter' => array("0" => "Vencido", "1" => "Completado", "2" => "En Proceso", "3" => "Sin Atencion"),
                     'value' => function ($data) {
                         if ($data->status == 0) {
-                            return '<div style="background:#fd3995; text-align:center; color:white; border-radius:10px;">Vencido</div>'
+                            return '<div class="rounded" style=" background:#fd3995; text-align:center; color:white; padding:5px; ">Vencido</div>'
                             ; // or return true;
                         } elseif ($data->status == 1) {
-                            return '<div style="background:#1dc9b7 ; text-align:center; color:white; border-radius:10px;">Completado</div>'; // or return true;  #1dc9b7      
+                            return '<div class="rounded" style="background:#1dc9b7 ; text-align:center; color:white; padding:5px; ">Completado</div>'; // or return true;  #1dc9b7      
                         } elseif ($data->status == 2) {
-                            return '<div style="background:#f5f5f5; text-align:center; color:; border-radius:10px;">En Proceso</div>'; // or return true;    #f5f5f5    
+                            return '<div class="rounded" style="background:#f5f5f5; text-align:center; color:; padding:5px;">En Proceso</div>'; // or return true;    #f5f5f5    
                         } else {
-                            return '<div style="background:#ffc241; text-align:center; color:white; border-radius:10px;">Sin Atencion</div>'; // or return true;  #ffc241 
+                            return '<div class="rounded" style="background:#ffc241; text-align:center; color:white; ">Sin Atencion</div>'; // or return true;  #ffc241 
                         }
                     },
                 ],

@@ -52,6 +52,7 @@ class Seguimientos extends \yii\db\ActiveRecord
             [['tareas', 'observaciones'], 'string'],
             [['fecha_inicio', 'fecha_vencimiento', 'fecha_captura', 'secretaria_participante', 'secretaria_participante'], 'safe'],
             [['status', 'user_id', 'leido'], 'integer'],
+            [['status'], 'required','message'=>'No puede estar vacío'],
             [['folio', 'tema'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];

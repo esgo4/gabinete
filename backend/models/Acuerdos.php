@@ -41,6 +41,7 @@ class Acuerdos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['acuerdo','fecha_termino','secretaria_id'], 'required','message'=>'No puede estar vacío'],
             [['acuerdo'], 'string'],
             [['minutas_id', 'secretaria_id', 'user_id'], 'integer'],
             [['fecha_inicio', 'fecha_termino', 'timestamp'], 'safe'],
@@ -60,7 +61,7 @@ class Acuerdos extends \yii\db\ActiveRecord
             'id' => 'ID',
             'acuerdo' => 'Acuerdo',
             'minutas_id' => 'Minutas ID',
-            'secretaria_id' => 'Secretaria ID',
+            'secretaria_id' => 'Secretaria',
             'plazo' => 'Plazo',
             'fecha_inicio' => 'Fecha Inicio',
             'fecha_termino' => 'Fecha Termino',

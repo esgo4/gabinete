@@ -91,8 +91,9 @@
                                     <!----------Start employee personal information--------------> 
                                     <div class="profile-data">
                                         <h4 class="title"><?php echo 'Acuerdos'; ?></h4>
+                                        
                          <?= \yii\bootstrap\Html::button('Nuevo Acuerdos', ['value' => yii\helpers\Url::to(['acuerdos/nuevo-acuerdo', 'id' => $model->id]), 'title' => 'Cambiar Status', 'class' => 'showModalButton btn btn-info waves-effect waves-themed']); ?>
-
+                                                    <br><br>
                                         <table class="table table-bordered">
   <thead>
     <tr>

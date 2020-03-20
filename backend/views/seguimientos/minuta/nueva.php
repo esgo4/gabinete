@@ -56,25 +56,19 @@ use kartik\widgets\Select2;
                                 </tr>
                             </thead>
                             <?php
-                            $responsables = backend\models\Responsables::find()->where(['seguimientos_id' => $minutas->seguimientos_id])->all();
+                                $responsables = backend\models\Responsables::find()->where(['seguimientos_id' => $minutas->seguimientos_id])->all();
 
-                            foreach ($responsables as $responsable) {
+                                foreach ($responsables as $responsable) {
 
+                                    echo ' <tbody>
+                                                <tr>
 
-                                echo ' <tbody>
-    
-    <tr>
+                                                  <td>' . $responsable->secretarias->nombre . '</td>
 
-      <td>' . $responsable->secretarias->nombre . '</td>
-
-
-    </tr>
-
-    
-  </tbody>';
-                            }
+                                                </tr>
+                                            </tbody>';
+                                }
                             ?>
-
                         </table>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-lg-6">
@@ -86,70 +80,57 @@ use kartik\widgets\Select2;
 
                                 </tr>
                             </thead>
-<?php
-$participantes = backend\models\Participantes::find()->where(['seguimientos_id' => $minutas->seguimientos_id])->all();
+                            <?php
+                                $participantes = backend\models\Participantes::find()->where(['seguimientos_id' => $minutas->seguimientos_id])->all();
 
+                                foreach ($participantes as $participante) {
 
-foreach ($participantes as $participante) {
-
-
-    echo ' <tbody>
-    
-    <tr>
-
-      <td>' . $participante->secretarias->nombre . '</td>
-
-
-    </tr>
-
-    
-  </tbody>';
-}
-?>
-
+                                    echo ' <tbody>
+                                                <tr>
+                                                  <td>' . $participante->secretarias->nombre . '</td>
+                                                </tr>
+                                           </tbody>';
+                                }
+                            ?>
                         </table>
                     </div>
 
 
                     <div class="col-xs-12 col-sm-4 col-lg-4">
-<?=
-$form->field($minutas, 'proyectos_estrategicos')->widget(Select2::classname(), [
-    'name' => 'proyectos_estrategicos',
-    'language' => 'es',
-    'data' => $proyectos_estrategicos,
-    'options' => ['multiple' => true, 'placeholder' => 'Seleccionar Proyectos Bandera', 'id' => 'proyectos_estrategicos'],
-    'pluginOptions' => [
-//                            'ajax' => [
-//                                //'url' => Url::to(['participantes']),
-//                                'url' => Url::to(['responsables']),
-//                                'dataType' => 'json',
-//                                'data' => new JsExpression('function(params) {
-//                                        var arr = ($("#secretaria_participante").val());
-//                                        var arr_length = arr.length;
-//                                        var demo = [];
-//                                        for (var i = 0; i < arr_length; i++) {
-//                                            demo += arr[i] + ",";
-//                                        }
-//                                        console.log(demo);
-//                                        return { dependencia: demo, q:params.term, page: params.page };
-//                                    }'
-//                                ),
-//                            ],
-    ],
-])
-?>
-
+                        <?=
+                            $form->field($minutas, 'proyectos_estrategicos')->widget(Select2::classname(), [
+                                'name' => 'proyectos_estrategicos',
+                                'language' => 'es',
+                                'data' => $proyectos_estrategicos,
+                                'options' => ['multiple' => true, 'placeholder' => 'Seleccionar Proyectos Bandera', 'id' => 'proyectos_estrategicos'],
+                                'pluginOptions' => [
+                            //                            'ajax' => [
+                            //                                //'url' => Url::to(['participantes']),
+                            //                                'url' => Url::to(['responsables']),
+                            //                                'dataType' => 'json',
+                            //                                'data' => new JsExpression('function(params) {
+                            //                                        var arr = ($("#secretaria_participante").val());
+                            //                                        var arr_length = arr.length;
+                            //                                        var demo = [];
+                            //                                        for (var i = 0; i < arr_length; i++) {
+                            //                                            demo += arr[i] + ",";
+                            //                                        }
+                            //                                        console.log(demo);
+                            //                                        return { dependencia: demo, q:params.term, page: params.page };
+                            //                                    }'
+                            //                                ),
+                            //                            ],
+                                ],
+                            ])
+                        ?>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <div class="form-group">
-<?= Html::submitButton('Generar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Generar', ['class' => 'btn btn-success']) ?>
     </div>
 
         <?php ActiveForm::end(); ?>

@@ -386,30 +386,26 @@ class SeguimientosController extends Controller
         return $out;
     }
     
-    public function actionGenerarMinuta($id) {
+    public function actionGenerarMinuta($id) { // id seguimiento
         $minutas = new \backend\models\Minutas();
         $minutas->seguimientos_id = $id;
         
         $secretarias_responsables = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->all(), 'id', 'nombre');
         $secretarias_participantes = \yii\helpers\ArrayHelper::map(\backend\models\Secretarias::find()->all(), 'id', 'nombre');
         $proyectos_estrategicos = \yii\helpers\ArrayHelper::map(\backend\models\ProyectosEstrategicos::find()->all(), 'id', 'nombre');
-        $tareas = \yii\helpers\ArrayHelper::map(Seguimientos::find()->all(), 'id', 'tema');
-
-        
-        
+        //$tareas = \yii\helpers\ArrayHelper::map(Seguimientos::find()->all(), 'id', 'tema');
+              
         $minutas->fecha = date('Y-m-d');
         $minutas->tema = $minutas->seguimientos->tema;
         
         if ($minutas->load(Yii::$app->request->post())) {
             
-
             $minutas->datetime = date('Y-m-d H:I:s');
             $minutas->user_id = \Yii::$app->user->identity->id;
             $minutas->save();
             $minutas->folio = 'acdo-'.$minutas->id.'-'.date('Y');
             $minutas->save();
-     
-            
+                
             if(isset($minutas->proyectos_estrategicos)){
                 foreach ($minutas->proyectos_estrategicos as $proyectos){
                 $m_proyectos = new \backend\models\MProyectos();
@@ -418,10 +414,7 @@ class SeguimientosController extends Controller
                 $m_proyectos->save();
                 }
             }
-            
-            
-            
-            
+                                  
             return $this->redirect(['minutas/vista', 'id' => $minutas->id]);
         }
 

@@ -16,7 +16,7 @@ use yii\web\JsExpression;
 
     <?php
     $form = ActiveForm::begin([
-                'id' => 'nuevo-seguimiento-form',
+                'id' => 'form',
                 'options' => [
                     'autocomplete' => 'off'
                 ],
