@@ -95,6 +95,7 @@ class SeguimientosController extends Controller
            
            $minutas_registradas = \backend\models\Minutas::find()->where(['seguimientos_id' => $id])->all();
            $avances_registrados = \backend\models\Avances::find()->where(['minuta_id' => $id])->all();
+           
 
 
         return $this->render('minutas', [
